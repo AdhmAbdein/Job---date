@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job
+spec:
+  template:
+    spec:
+      containers:
+        - name: job
+          image: centos:latest
+          command: [ "sh", "-c", "date > /output/data.txt && sleep 1000" ]
+          volumeMounts:
+            - name: vol
+              mountPath: /output
+      volumes:
+        - name: vol
+          hostPath:
+            path: /adhamk8s
+            type: Directory
+      restartPolicy: Never
